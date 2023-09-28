@@ -1,0 +1,79 @@
+{% extends 'admin/headerfooter.html' %}
+{% block content %}
+<section id="main-content">
+<section class="wrapper">
+    <div class="panel panel-default">
+                        <header class="panel-heading">
+                          Update Product Details
+                          </header>
+                        <div class="panel-body">
+                            <div class="position-center">
+                                {% for x in data2 %}
+                                <form action="/prod_update/?uuid={{x.id}}" method="post" enctype="multipart/form-data">
+                                  {% csrf_token %}
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input type="text" class="form-control" name="pname" value="{{x.productname}}" id="pname" placeholder="Enter product">
+                                </div>
+                                <div class="form-group">
+                                    <label >Old price</label>
+                                    <input type="text" class="form-control" name="oldprice" value="{{x.oldprice}}" id="Oldprice" placeholder="Old Price">
+                                </div>
+                                 <div class="form-group">
+                                    <label >New price</label>
+                                    <input type="text" class="form-control"  name="newprice" value="{{x.newprice}}" id="Newprice" placeholder="New Price">
+                                </div>
+                                 <div class="form-group">
+                                    <label >Product description</label>
+                                    <input type="text" class="form-control"  name="proddesciption" value="{{x.description}}"  id="product description" placeholder="description">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInput">Select image</label>
+                                    <img src="{{x.image.url}}" style="width:200px;height: 200px;" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInput">Do you want to update image?</label>
+                                    <input type="radio"  name="imgup" onchange="hide()" id="imgup" value="yes"> yes
+                                    <input type="radio"  name="imgup" onchange="hide()"  value="no" checked> no
+
+                                </div>
+                                 <div class="form-group" id="filediv" style="display: none;">
+                                    <label for="exampleInput">image</label>
+                                    <input type="file" id="img" name="image">
+                                </div>
+                                
+                                <div class="select_catagory">
+                                    <select class="select" name="s1">
+                                      <option selected>{{x.catagory}}</option>
+                                      <option>Staples</option>                                      
+                                      <option>Snacks</option>
+                                      <option>fruits and vegetables</option>
+                                      <option>break fast& cereal</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-info">Update</button>
+                            </form>
+                            {% endfor %}
+                            </div>
+
+                        </div>
+              
+                </div></section></section>
+
+    
+<script type="text/javascript">
+        function hide(){
+        var chkYes = document.getElementById("imgup");
+        var filediv = document.getElementById("filediv");
+        filediv.style.display = chkYes.checked ? "block" : "none";
+        if (chkYes.checked){
+        var img = document.getElementById("img").required = true;
+        }
+        else{
+        var img = document.getElementById("img").required = false;
+        }
+
+        }
+    </script>
+{% endblock %}
